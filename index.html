@@ -12,7 +12,9 @@
 <body>
 <header class="site-header">
   <div class="container header-row">
-    <div class="logo"><img src="/assets/logo.png" alt="JEOAH'S" style="height:44px"></div>
+    <div class="logo">
+      <img src="/logo.png" alt="JEOAH'S Market Place" width="120" height="auto" />
+    </div>
     <nav class="nav">
       <a href="/index.html">Accueil</a>
       <a href="/inscription.html">Inscription</a>
@@ -32,6 +34,11 @@
       <a class="download-btn" href="/JEOAHS_Maquette_Final.zip" download>⬇️ Télécharger la maquette</a>
     </div>
   </div>
+</div>
+
+<!-- BOUTON INSTALLATION PWA -->
+<div style="text-align:center; margin: 16px 0;">
+  <button id="installBtn" style="display:none;">📥 Installer l’application</button>
 </div>
 
 <main class="hero container">
@@ -81,5 +88,21 @@
 </footer>
 
 <script src="/app.js"></script>
+<!-- SCRIPT INSTALLATION PWA -->
+<script>
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const installBtn = document.getElementById('installBtn');
+    installBtn.style.display = 'block';
+    installBtn.addEventListener('click', () => {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        deferredPrompt = null;
+      });
+    });
+  });
+</script>
 </body>
 </html>
